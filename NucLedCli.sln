@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NucLedCli", "NucLedCli\NucLedCli.csproj", "{F227945A-CA18-4C53-B217-DB6C337DB059}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F227945A-CA18-4C53-B217-DB6C337DB059}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F227945A-CA18-4C53-B217-DB6C337DB059}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F227945A-CA18-4C53-B217-DB6C337DB059}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F227945A-CA18-4C53-B217-DB6C337DB059}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5D8BDD53-1C57-4553-9430-992D4DF077FC}
+	EndGlobalSection
+EndGlobal
