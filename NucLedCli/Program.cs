@@ -46,7 +46,12 @@ namespace NucLedCli
                 foreach (var o in wmi.Get())
                 {
                     var mo = (ManagementObject) o;
-                    mo.InvokeMethod(Method, new object[] {BitConverter.ToInt32(data, 0)});
+                    var res = mo.InvokeMethod(Method, new object[] {BitConverter.ToInt32(data, 0)}) as int?;
+                    if (res != null && (res & ~0xff) != 0) // last byte is reserved
+                    {
+                        var errors = BitConverter.GetBytes(res.Value).Cast<Error>().Take(3).ToList();
+                        Console.Error.WriteLine($"WMI call returned errors: Brightness: {errors[0]}, Mode: {errors[1]}, Color: {errors[2]}.");
+                    }
                     mo.Dispose();
                 }
             }

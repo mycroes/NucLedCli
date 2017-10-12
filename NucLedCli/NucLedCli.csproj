@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ButtonColor.cs" />
+    <Compile Include="Error.cs" />
     <Compile Include="RingColor.cs" />
     <Compile Include="Led.cs" />
     <Compile Include="Mode.cs" />
