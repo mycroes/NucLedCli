@@ -37,7 +37,8 @@
     <Reference Include="System.Management" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Color.cs" />
+    <Compile Include="ButtonColor.cs" />
+    <Compile Include="RingColor.cs" />
     <Compile Include="Led.cs" />
     <Compile Include="Mode.cs" />
     <Compile Include="Program.cs" />

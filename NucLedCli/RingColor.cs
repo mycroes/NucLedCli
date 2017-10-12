@@ -1,6 +1,6 @@
 namespace NucLedCli
 {
-    public enum Color : byte {
+    public enum RingColor : byte {
         None = 0,
         Cyan = 1,
         Pink = 2,

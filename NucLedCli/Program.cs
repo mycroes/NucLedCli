@@ -34,8 +34,11 @@ namespace NucLedCli
                     return;
                 }
 
+                var led = Parse<Led>(args[0]);
+                var color = GetColor(led, args[1]);
+
                 byte[] data =
-                    {Parse<Led>(args[0]), ParseBrightness(args[3]), Parse<Mode>(args[2]), Parse<Color>(args[1])};
+                    {(byte) led, ParseBrightness(args[3]), ParseByte<Mode>(args[2]), color};
 
                 var wmi = new ManagementObjectSearcher(Scope, Query,
                     new EnumerationOptions {ReturnImmediately = false});
@@ -59,14 +62,30 @@ namespace NucLedCli
 
         private static string Explain(string arg)
         {
-            var name = char.ToUpper(arg[0]) + arg.Substring(1).ToLower();
+            var name = arg.ToLower();
             switch (name)
             {
-                case "Brightness": return $"0-{100}";
-                case "Led":
-                case "Mode":
-                case "Color": return string.Join(", ", Enum.GetValues(Type.GetType($"{typeof(Color).Namespace}.{name}", true)).Cast<object>());
+                case "brightness": return "0-100";
+                case "led": return JoinEnumValues(typeof(Led));
+                case "mode": return JoinEnumValues(typeof(Mode));
+                case "ringcolor": return JoinEnumValues(typeof(RingColor));
+                case "buttoncolor": return JoinEnumValues(typeof(ButtonColor));
                 default: return "Unknown argument";
+            }
+        }
+
+        private static string JoinEnumValues(Type enumType)
+        {
+            return string.Join(", ", Enum.GetValues(enumType).Cast<object>());
+        }
+
+        private static byte GetColor(Led led, string color)
+        {
+            switch (led)
+            {
+                case Led.Button: return ParseByte<ButtonColor>(color);
+                case Led.Ring: return ParseByte<RingColor>(color);
+                default: throw new ArgumentException($"Invalid led value: {led}.");
             }
         }
 
@@ -74,8 +93,8 @@ namespace NucLedCli
         {
             var exe = Path.GetFileNameWithoutExtension(Assembly.GetCallingAssembly().Location);
             writer.WriteLine("Usage:");
-            writer.WriteLine($"\t{exe} led color mode brightness");
-            writer.WriteLine($"\t{exe} help [led, color, mode, brightness]");
+            writer.WriteLine($"\t{exe} led buttoncolor|ringcolor mode brightness");
+            writer.WriteLine($"\t{exe} help [led, buttoncolor, ringcolor, mode, brightness, ...]");
 
             if (message == null) return;
 
@@ -91,12 +110,17 @@ namespace NucLedCli
             return parsed;
         }
 
-        private static byte Parse<T>(string arg) where T : struct, IComparable
+        private static T Parse<T>(string arg) where T : struct, IComparable
         {
             if (!Enum.TryParse(arg, true, out T res) || !Enum.IsDefined(typeof(T), res))
                 throw new ArgumentException($"Failed to parse {typeof(T).Name} from {arg}.");
 
-            return (byte) (object) res;
+            return res;
+        }
+
+        private static byte ParseByte<T>(string arg) where T : struct, IComparable
+        {
+            return (byte) (object) Parse<T>(arg);
         }
     }
 }
