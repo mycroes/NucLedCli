@@ -35,7 +35,7 @@ namespace NucLedCli
                 }
 
                 byte[] data =
-                    {Parse<Led>(args[0]), Parse<Color>(args[1]), Parse<Mode>(args[2]), ParseBrightness(args[3])};
+                    {Parse<Led>(args[0]), ParseBrightness(args[3]), Parse<Mode>(args[2]), Parse<Color>(args[1])};
 
                 var wmi = new ManagementObjectSearcher(Scope, Query,
                     new EnumerationOptions {ReturnImmediately = false});
