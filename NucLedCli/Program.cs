@@ -105,7 +105,7 @@ namespace NucLedCli
         private static byte ParseBrightness(string arg)
         {
             if (!byte.TryParse(arg, out var parsed)) throw new ArgumentException($"Failed to parse brightness value from {arg}.");
-            if (parsed > 100) throw new ArgumentException($"Brightness can't be larger than {100}.");
+            if (parsed > 100) throw new ArgumentException("Brightness can\'t be larger than 100.");
 
             return parsed;
         }
